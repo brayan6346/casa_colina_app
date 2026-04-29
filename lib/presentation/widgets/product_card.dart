@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 import '../../data/models/product_model.dart';
+import 'package:provider/provider.dart';
+import '../../providers/favorite_provider.dart';
+import '../../providers/cart_provider.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final Product product;
 
   const ProductCard({super.key, required this.product});
 
   @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+
+  @override
   Widget build(BuildContext context) {
+    final product = widget.product;
+
+    final favProvider = Provider.of<FavoriteProvider>(context);
+    bool isFavorite = favProvider.isFavorite(product);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
@@ -24,16 +37,42 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Imagen
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-            child: Image.asset(
-              product.image,
-              height: 180,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
+          Stack(
+            children: [
+              // Imagen
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
+                child: Image.asset(
+                  product.image,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
 
+              // Botón corazón
+              Positioned(
+                top: 10,
+                right: 10,
+                child: GestureDetector(
+                  onTap: () {
+                    favProvider.toggleFavorite(product);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           // Info
           Padding(
             padding: const EdgeInsets.all(12),
@@ -78,10 +117,28 @@ class ProductCard extends StatelessWidget {
 
                 // Botón
                 Center(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text("Añadir al pedido"),
-                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        // agregar al carrito
+                        final cart = Provider.of<CartProvider>(context, listen: false);
+                        cart.addToCart(product);
+                      },
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      label: const Text(
+                        "Añadir al pedido",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
                 )
               ],
             ),

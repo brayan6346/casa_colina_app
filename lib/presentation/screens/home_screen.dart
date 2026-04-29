@@ -5,14 +5,20 @@ import '../screens/order_screen.dart';
 import '../screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int initialTab;
+
+  const HomeScreen({super.key, this.initialTab = 0});
+
+  static _HomeScreenState? of(BuildContext context) {
+    return context.findAncestorStateOfType<_HomeScreenState>();
+  }
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  late int currentIndex;
 
   final List<Widget> screens = [
     const MenuScreen(),
@@ -20,6 +26,19 @@ class _HomeScreenState extends State<HomeScreen> {
     const OrderScreen(),
     const ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialTab;
+  }
+
+   // 👇 método para cambiar de tab
+  void changeTab(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
