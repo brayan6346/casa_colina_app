@@ -1,6 +1,9 @@
+import 'package:casa_colina_app/presentation/screens/favorites_screen.dart';
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
 import 'package:casa_colina_app/presentation/screens/past_orders_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
+import 'package:casa_colina_app/providers/favorite_provider.dart';
+import 'package:casa_colina_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
     return Scaffold(
       backgroundColor: Colors.grey[100],
 
@@ -35,16 +39,19 @@ class ProfileScreen extends StatelessWidget {
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          "María González",
-                          style: TextStyle(
+                          user.name.isEmpty ? "Invitado" : user.name,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 5),
-                        Text("maria.gonzalez@email.com"),
+                        const SizedBox(height: 5),
+                        Text(
+                          user.email.isEmpty ? "Sin correo" : user.email,
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                       ],
                     )
                   ],
@@ -82,7 +89,23 @@ class ProfileScreen extends StatelessWidget {
                     divider(),
                     profileOption(Icons.credit_card, "Métodos de Pago"),
                     divider(),
-                    profileOption(Icons.favorite_border, "Mis Favoritos"),
+                    Consumer<FavoriteProvider>(
+                      builder: (context, fav, _) {
+                        return profileOption(
+                          Icons.favorite_border,
+                          "Mis Favoritos",
+                          badge: fav.favorites.length.toString(), // 👈 igual que pedidos
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const FavoritesScreen(),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                     divider(),
                     profileOption(Icons.settings, "Configuración de Cuenta"),
                   ],
@@ -223,7 +246,7 @@ class ProfileScreen extends StatelessWidget {
                 cartProvider.reorder(order);
 
                 // 👉 ir al carrito
-                HomeScreen.of(context)?.changeTab(1);
+                HomeScreen.of(context)?.changeTab(2);
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(

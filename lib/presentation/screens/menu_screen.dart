@@ -1,6 +1,8 @@
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../data/mock/products.dart';
 import '../../../data/mock/fondos.dart';
@@ -45,45 +47,10 @@ class _MenuScreenState extends State<MenuScreen> {
         centerTitle: true,
 
         actions: [
-          Consumer<CartProvider>(
-            builder: (context, cart, child) {
-              return Stack(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.shopping_cart),
-                    onPressed: () {
-                      HomeScreen.of(context)?.changeTab(1);
-                    },
-                  ),
-
-                  // 🔴 BADGE
-                  if (cart.totalItems > 0)
-                    Positioned(
-                      right: 6,
-                      top: 6,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        constraints: const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        ),
-                        child: Text(
-                          cart.totalItems.toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                ],
-              );
+          IconButton(
+            icon: const Icon(Icons.download_rounded),
+            onPressed: () {
+              _showDownloadDialog(context);
             },
           ),
         ],
@@ -157,6 +124,103 @@ class _MenuScreenState extends State<MenuScreen> {
           child: ProductCard(product: products[index]),
         );
       },
+    );
+  }
+
+  void _showDownloadDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+      ),
+      builder: (_) {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              // 🔥 ICONO GRANDE
+              const Icon(
+                Icons.picture_as_pdf,
+                size: 60,
+                color: Colors.red,
+              ),
+
+              const SizedBox(height: 15),
+
+              const Text(
+                "Descargar Menú",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              const Text(
+                "Obtén nuestro menú completo en formato PDF",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey),
+              ),
+
+              const SizedBox(height: 20),
+
+              // 🔘 BOTÓN
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    padding: const EdgeInsets.all(16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  icon: const Icon(Icons.download, color: Colors.white),
+                  label: const Text(
+                    "Descargar Menú PDF",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _downloadPDF(context);
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 10),
+            ],
+          ),
+        );
+      },
+    );
+  }  
+}
+
+Future<void> _downloadPDF(BuildContext context) async {
+  try {
+    final dir = await getApplicationDocumentsDirectory();
+    final filePath = "${dir.path}/menu.pdf";
+
+    final dio = Dio();
+
+    // 🔗 CAMBIA POR TU PDF REAL
+    const url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+
+    await dio.download(url, filePath);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Menú descargado correctamente 📄"),
+      ),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Error al descargar el archivo ❌"),
+      ),
     );
   }
 }

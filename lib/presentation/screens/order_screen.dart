@@ -41,7 +41,7 @@ class OrderScreen extends StatelessWidget {
                 onPressed: () {
                   // 👇 te manda al menú
                   // (igual que hiciste en carrito)
-                  HomeScreen.of(context)?.changeTab(0);
+                  HomeScreen.of(context)?.changeTab(1);
                 },
                 child: const Text(
                   "Ver menú",
@@ -58,6 +58,12 @@ class OrderScreen extends StatelessWidget {
       backgroundColor: Colors.grey[100],
 
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            HomeScreen.of(context)?.changeTab(2);
+          },
+        ),
         title: const Text("Estado del Pedido"),
         centerTitle: false,
       ),

@@ -1,5 +1,7 @@
+import 'package:casa_colina_app/presentation/screens/login_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
 import 'package:casa_colina_app/providers/favorite_provider.dart';
+import 'package:casa_colina_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'presentation/screens/home_screen.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();    
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +46,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: const MyApp(),
     ),
@@ -61,7 +65,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: HomeScreen(),
+      navigatorKey: navigatorKey, // 👈 🔥 CLAVE
+      home: const LoginScreen(),
     );
   }
 }

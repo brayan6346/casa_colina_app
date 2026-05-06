@@ -18,7 +18,9 @@ class PastOrdersScreen extends StatelessWidget {
 
       body: cart.orders.isEmpty
           ? const Center(
-              child: Text("No hay pedidos realizados"),
+              child: Text("No hay pedidos realizados",
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
             )
           : ListView.builder(
               padding: const EdgeInsets.all(16),
@@ -91,7 +93,7 @@ class PastOrdersScreen extends StatelessWidget {
                 // 🧭 ir directo al carrito
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (_) => const HomeScreen(initialTab: 1),
+                    builder: (_) => const HomeScreen(initialTab: 2),
                   ),
                   (route) => false,
                 );

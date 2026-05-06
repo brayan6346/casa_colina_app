@@ -1,4 +1,7 @@
+import 'package:casa_colina_app/presentation/screens/landing_home_screen.dart';
+import 'package:casa_colina_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../screens/menu_screen.dart';
 import '../screens/cart_screen.dart';
 import '../screens/order_screen.dart';
@@ -21,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late int currentIndex;
 
   final List<Widget> screens = [
+    const LandingHomeScreen(),
     const MenuScreen(),
     const CartScreen(),
     const OrderScreen(),
@@ -51,9 +55,47 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.brown,
-        items: const [
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: "Menú"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Carrito"),
+          BottomNavigationBarItem(
+            icon: Consumer<CartProvider>(
+              builder: (context, cart, _) {
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    const Icon(Icons.shopping_cart),
+
+                    if (cart.items.isNotEmpty)
+                      Positioned(
+                        right: -6,
+                        top: -6,
+                        child: IgnorePointer( // 🔥 NO BLOQUEA EL TAP
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text(
+                              cart.items
+                                  .fold(0, (sum, item) => sum + item.quantity)
+                                  .toString(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+            label: "Carrito",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.receipt), label: "Pedido"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
         ],

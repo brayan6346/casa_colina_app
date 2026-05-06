@@ -42,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 onPressed: () {
-                  HomeScreen.of(context)?.changeTab(0); // vuelve al menú
+                  HomeScreen.of(context)?.changeTab(1); // vuelve al menú
                 },
                 child: const Text(
                   "Ver menú",
@@ -135,7 +135,7 @@ class _CartScreenState extends State<CartScreen> {
 
                       cart.startOrderSimulation();
 
-                      HomeScreen.of(context)?.changeTab(2); // ir a Pedido
+                      HomeScreen.of(context)?.changeTab(3); // ir a Pedido
                     },
                     child: const Text(
                       "Confirmar Pedido y Tiempo",
@@ -157,7 +157,7 @@ class _CartScreenState extends State<CartScreen> {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          HomeScreen.of(context)?.changeTab(0);
+          HomeScreen.of(context)?.changeTab(1);
         },
       ),
     );
