@@ -5,7 +5,8 @@ import '../../main.dart';
 import 'home_screen.dart';
 
 class NameInputScreen extends StatefulWidget {
-  const NameInputScreen({super.key});
+  final String phone;
+  const NameInputScreen({super.key, required this.phone});
 
   @override
   State<NameInputScreen> createState() => _NameInputScreenState();
@@ -18,8 +19,12 @@ class _NameInputScreenState extends State<NameInputScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.white,
       ),
 
       body: Padding(
@@ -62,6 +67,23 @@ class _NameInputScreenState extends State<NameInputScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    foregroundColor: Colors.white,
+
+                    elevation: 6,
+
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 18,
+                    ),
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+
+                    shadowColor: Colors.black.withValues(alpha: 0.25),
+                  ),
+
                   onPressed: () {
                     if (controller.text.trim().isEmpty) {
                       setState(() {
@@ -70,9 +92,12 @@ class _NameInputScreenState extends State<NameInputScreen> {
                       return;
                     }
 
-                    // 🔥 GUARDAR NOMBRE EN PROVIDER
+                    // 🔥 GUARDAR NOMBRE Y CELULAR EN PROVIDER
                     Provider.of<UserProvider>(context, listen: false)
-                        .setUserName(controller.text.trim());
+                        .setUserNameAndPhone(
+                          controller.text.trim(),
+                          widget.phone,
+                        );
 
                     // 🚀 NAVEGAR AL HOME
                     navigatorKey.currentState!.pushAndRemoveUntil(
@@ -91,9 +116,17 @@ class _NameInputScreenState extends State<NameInputScreen> {
                       (route) => false,
                     );
                   },
-                  child: const Text("Continuar"),
+
+                  child: const Text(
+                    "Continuar",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
                 ),
-              ),  
+              ),
             )
           ],
         ),

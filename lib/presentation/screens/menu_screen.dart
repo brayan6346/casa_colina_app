@@ -49,7 +49,12 @@ class _MenuScreenState extends State<MenuScreen> {
             HomeScreen.of(context)?.changeTab(0);
           },
         ),
-        title: const Text("Casa Colina"),
+        title: const Text("Nuestro Menú",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         centerTitle: true,
 
         actions: [

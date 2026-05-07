@@ -121,7 +121,7 @@ class _ProductCardState extends State<ProductCard> {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 135, 70, 0),
+                        backgroundColor: const Color.fromARGB(255, 117, 61, 0),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

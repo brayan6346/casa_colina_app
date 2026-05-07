@@ -12,7 +12,28 @@ class PastOrdersScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Pedidos Pasados"),
+        backgroundColor: Colors.brown,
+        elevation: 0,
+
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+
+        title: const Text(
+          "Pedidos Pasados",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       backgroundColor: Colors.grey[100],
 

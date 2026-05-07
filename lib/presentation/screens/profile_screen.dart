@@ -1,8 +1,12 @@
+import 'package:casa_colina_app/presentation/screens/account_settings_screen.dart';
 import 'package:casa_colina_app/presentation/screens/favorites_screen.dart';
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
+import 'package:casa_colina_app/presentation/screens/login_screen.dart';
 import 'package:casa_colina_app/presentation/screens/past_orders_screen.dart';
+import 'package:casa_colina_app/presentation/screens/payment_methods_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
 import 'package:casa_colina_app/providers/favorite_provider.dart';
+import 'package:casa_colina_app/providers/payment_provider.dart';
 import 'package:casa_colina_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,9 +53,34 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          user.email.isEmpty ? "Sin correo" : user.email,
+                          user.email.isNotEmpty 
+                            ? user.email 
+                            : (user.phone.isNotEmpty ? user.phone : "Sin contacto"),
                           style: const TextStyle(color: Colors.grey),
                         ),
+
+                        if (user.name.isNotEmpty) ...[
+                          const SizedBox(height: 8),
+                          InkWell(
+                            onTap: () {
+                              user.clearUser();
+                              Provider.of<PaymentProvider>(context, listen: false).clearCard();
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                                (route) => false,
+                              );
+                            },
+                            child: const Text(
+                              "Cerrar sesión",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     )
                   ],
@@ -87,14 +116,25 @@ class ProfileScreen extends StatelessWidget {
                       },
                     ),
                     divider(),
-                    profileOption(Icons.credit_card, "Métodos de Pago"),
+                    profileOption(
+                      Icons.credit_card,
+                      "Métodos de Pago",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const PaymentMethodsScreen(),
+                          ),
+                        );
+                      },
+                    ),
                     divider(),
                     Consumer<FavoriteProvider>(
                       builder: (context, fav, _) {
                         return profileOption(
                           Icons.favorite_border,
                           "Mis Favoritos",
-                          badge: fav.favorites.length.toString(), // 👈 igual que pedidos
+                          badge: fav.favorites.length.toString(),
                           onTap: () {
                             Navigator.push(
                               context,
@@ -107,14 +147,24 @@ class ProfileScreen extends StatelessWidget {
                       },
                     ),
                     divider(),
-                    profileOption(Icons.settings, "Configuración de Cuenta"),
+                    profileOption(
+                      Icons.settings,
+                      "Configuración de Cuenta",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const AccountSettingsScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
 
               const SizedBox(height: 20),
 
-              // 🧾 PEDIDOS RECIENTES
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
@@ -127,7 +177,6 @@ class ProfileScreen extends StatelessWidget {
 
               Consumer<CartProvider>(
                 builder: (context, cart, _) {
-
                   if (cart.orders.isEmpty) {
                     return const Center(
                       child: Padding(
@@ -151,7 +200,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // 🔘 OPCIONES PERFIL
   Widget profileOption(
     IconData icon,
     String title, {
@@ -184,12 +232,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // 🔹 DIVIDER
   Widget divider() {
     return const Divider(height: 1);
   }
 
-  // 🧾 CARD PEDIDO
   Widget orderCard(BuildContext context, Order order) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -201,8 +247,6 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
-          // 💰 TOTAL
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -210,24 +254,16 @@ class ProfileScreen extends StatelessWidget {
               Text("S/. ${order.total.toStringAsFixed(2)}"),
             ],
           ),
-
           const SizedBox(height: 5),
-
           Text(
             "Hora: ${order.time}",
             style: const TextStyle(color: Colors.grey),
           ),
-
           const SizedBox(height: 10),
-
-          // 🧾 PRODUCTOS
           ...order.items.map((item) {
             return Text("${item.quantity}x ${item.product.name}");
           }),
-
           const SizedBox(height: 15),
-
-          // 🔁 BOTÓN
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
@@ -239,19 +275,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                final cartProvider =
-                    Provider.of<CartProvider>(context, listen: false);
-
-                // 🔥 recargar carrito
+                final cartProvider = Provider.of<CartProvider>(context, listen: false);
                 cartProvider.reorder(order);
-
-                // 👉 ir al carrito
                 HomeScreen.of(context)?.changeTab(2);
-
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Pedido agregado al carrito"),
-                  ),
+                  const SnackBar(content: Text("Pedido agregado al carrito")),
                 );
               },
               icon: const Icon(Icons.refresh, color: Colors.black),

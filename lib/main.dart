@@ -1,6 +1,7 @@
 import 'package:casa_colina_app/presentation/screens/login_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
 import 'package:casa_colina_app/providers/favorite_provider.dart';
+import 'package:casa_colina_app/providers/payment_provider.dart';
 import 'package:casa_colina_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
       ],
       child: const MyApp(),
     ),

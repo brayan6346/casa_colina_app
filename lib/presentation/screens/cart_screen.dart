@@ -35,7 +35,7 @@ class _CartScreenState extends State<CartScreen> {
 
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.brown,
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -124,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.brown,
                       padding: const EdgeInsets.all(16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -153,7 +153,21 @@ class _CartScreenState extends State<CartScreen> {
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text("Resumen del Pedido"),
+      backgroundColor: Colors.brown,
+      elevation: 0,
+
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
+
+      title: const Text(
+        "Resumen del Pedido",
+        style: TextStyle(color: Colors.white,
+          fontSize: 22,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
@@ -225,7 +239,7 @@ class _CartScreenState extends State<CartScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.black : Colors.grey[300],
+          color: isSelected ? Colors.brown : Colors.grey[300],
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
@@ -252,7 +266,7 @@ class _CartScreenState extends State<CartScreen> {
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? Colors.black : Colors.grey,
+            color: isSelected ? Colors.brown : const Color.fromARGB(255, 211, 211, 211),
             width: 2,
           ),
           borderRadius: BorderRadius.circular(15),

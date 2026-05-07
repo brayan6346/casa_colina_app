@@ -15,14 +15,28 @@ class OrderScreen extends StatelessWidget {
         backgroundColor: Colors.grey[100],
 
         appBar: AppBar(
+          backgroundColor: Colors.brown,
+          elevation: 0,
+
+          iconTheme: const IconThemeData(
+            color: Colors.white, // color del back
+          ),
+
+          title: const Text(
+            "Estado del Pedido",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               HomeScreen.of(context)?.changeTab(2);
             },
           ),
-          title: const Text("Estado del Pedido"),
-          centerTitle: false,
         ),
 
         body: Center(
@@ -38,7 +52,7 @@ class OrderScreen extends StatelessWidget {
 
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.brown,
                   padding: const EdgeInsets.symmetric(
                       horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
@@ -65,14 +79,28 @@ class OrderScreen extends StatelessWidget {
       backgroundColor: Colors.grey[100],
 
       appBar: AppBar(
+        backgroundColor: Colors.brown,
+        elevation: 0,
+
+        iconTheme: const IconThemeData(
+          color: Colors.white, // color del back
+        ),
+
+        title: const Text(
+          "Estado del Pedido",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             HomeScreen.of(context)?.changeTab(2);
           },
         ),
-        title: const Text("Estado del Pedido"),
-        centerTitle: false,
       ),
 
       body: SingleChildScrollView(
@@ -172,7 +200,7 @@ class OrderScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.brown,
                   padding: const EdgeInsets.all(16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -220,7 +248,7 @@ class OrderScreen extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 14,
-              backgroundColor: active ? Colors.black : Colors.grey[300],
+              backgroundColor: active ? const Color.fromARGB(255, 0, 242, 20) : Colors.grey[300],
               child: Icon(
                 Icons.check,
                 size: 16,

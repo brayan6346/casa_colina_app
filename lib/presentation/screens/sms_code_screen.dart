@@ -7,8 +7,9 @@ import '../../main.dart';
 
 class SmsCodeScreen extends StatefulWidget {
   final String phone;
+  final bool isUpdate;
 
-  const SmsCodeScreen({super.key, required this.phone});
+  const SmsCodeScreen({super.key, required this.phone, this.isUpdate = false});
 
   @override
   State<SmsCodeScreen> createState() => _SmsCodeScreenState();
@@ -174,12 +175,16 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
 
                           if (codeController.text == generatedCode) {
                             // ✅ correcto
-                            navigatorKey.currentState!.pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (_) => const NameInputScreen(),
-                              ),
-                              (route) => false,
-                            );
+                            if (widget.isUpdate) {
+                              Navigator.pop(context, true); // Retorna éxito a la pantalla anterior
+                            } else {
+                              navigatorKey.currentState!.pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (_) => NameInputScreen(phone: widget.phone),
+                                ),
+                                (route) => false,
+                              );
+                            }
                           } else {
                             // ❌ incorrecto
                             setState(() {
@@ -190,6 +195,7 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
                         },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(16),
+                    backgroundColor: Colors.green,
                   ),
                   child: isLoading
                       ? Row(
@@ -201,10 +207,16 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
                               child: CircularProgressIndicator(strokeWidth: 2),
                             ),
                             SizedBox(width: 10),
-                            Text("Verificando..."),
+                            Text("Verificando...", 
+                              style: TextStyle(
+                              color: Colors.white),
+                            ),
                           ],
                         )
-                      : const Text("Verificar"),
+                      : const Text("Verificar",
+                        style: TextStyle(
+                        color: Colors.white),
+                      ),
                 ),
               ),  
             )
