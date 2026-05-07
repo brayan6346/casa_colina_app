@@ -19,7 +19,6 @@ class _NameInputScreenState extends State<NameInputScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
         elevation: 0,
       ),
 
@@ -58,40 +57,43 @@ class _NameInputScreenState extends State<NameInputScreen> {
 
             const Spacer(),
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (controller.text.trim().isEmpty) {
-                    setState(() {
-                      errorText = "El nombre es obligatorio";
-                    });
-                    return;
-                  }
+            SafeArea(
+              top: false,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (controller.text.trim().isEmpty) {
+                      setState(() {
+                        errorText = "El nombre es obligatorio";
+                      });
+                      return;
+                    }
 
-                  // 🔥 GUARDAR NOMBRE EN PROVIDER
-                  Provider.of<UserProvider>(context, listen: false)
-                      .setUserName(controller.text.trim());
+                    // 🔥 GUARDAR NOMBRE EN PROVIDER
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setUserName(controller.text.trim());
 
-                  // 🚀 NAVEGAR AL HOME
-                  navigatorKey.currentState!.pushAndRemoveUntil(
-                    PageRouteBuilder(
-                      pageBuilder: (_, __, ___) => const HomeScreen(),
-                      transitionsBuilder: (_, animation, __, child) {
-                        return SlideTransition(
-                          position: Tween(
-                            begin: const Offset(1, 0),
-                            end: Offset.zero,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                    ),
-                    (route) => false,
-                  );
-                },
-                child: const Text("Continuar"),
-              ),
+                    // 🚀 NAVEGAR AL HOME
+                    navigatorKey.currentState!.pushAndRemoveUntil(
+                      PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => const HomeScreen(),
+                        transitionsBuilder: (_, animation, __, child) {
+                          return SlideTransition(
+                            position: Tween(
+                              begin: const Offset(1, 0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        },
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text("Continuar"),
+                ),
+              ),  
             )
           ],
         ),

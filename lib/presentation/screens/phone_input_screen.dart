@@ -95,33 +95,36 @@ class PhoneInputScreen extends StatelessWidget {
 
             const Spacer(),
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.all(18),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+            SafeArea(
+              top: false,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.all(18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (controller.text.length == 9) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => SmsCodeScreen(
+                            phone: controller.text,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    "Recibir código por SMS",
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-                onPressed: () {
-                  if (controller.text.length == 9) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => SmsCodeScreen(
-                          phone: controller.text,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: const Text(
-                  "Recibir código por SMS",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
+              ),  
             )
           ],
         ),

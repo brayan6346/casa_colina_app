@@ -13,11 +13,42 @@ class LandingHomeScreen extends StatelessWidget {
           child: Column(
             children: [
 
+              // 🔥 HEADER PROFESIONAL
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 18,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    // 🔥 LOGO
+                    Image.asset(
+                      "assets/logo.png",
+                      height: 55,
+                    ),
+                  ],
+                ),
+              ),
+
               // 🔥 HERO (IMAGEN PRINCIPAL)
               Stack(
                 children: [
                   SizedBox(
-                    height: 500,
+                    height: 620,
                     width: double.infinity,
                     child: Image.asset(
                       "assets/Rectangle.jpg", // 👈 tu imagen
@@ -27,8 +58,17 @@ class LandingHomeScreen extends StatelessWidget {
 
                   // overlay oscuro
                   Container(
-                    height: 500,
-                    color: Colors.black.withOpacity(0.5),
+                    height: 620,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.45),
+                          Colors.black.withOpacity(0.65),
+                        ],
+                      ),
+                    ),
                   ),
 
                   // contenido
@@ -42,7 +82,10 @@ class LandingHomeScreen extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 28,
+                            height: 1.2,
+                            letterSpacing: 1,
                             fontWeight: FontWeight.bold,
+                            fontFamily: "Serif",
                           ),
                         ),
                         SizedBox(height: 15),

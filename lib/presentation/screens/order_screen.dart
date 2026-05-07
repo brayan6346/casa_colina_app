@@ -15,7 +15,14 @@ class OrderScreen extends StatelessWidget {
         backgroundColor: Colors.grey[100],
 
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              HomeScreen.of(context)?.changeTab(2);
+            },
+          ),
           title: const Text("Estado del Pedido"),
+          centerTitle: false,
         ),
 
         body: Center(

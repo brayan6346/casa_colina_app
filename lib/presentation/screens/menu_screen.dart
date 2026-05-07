@@ -43,6 +43,12 @@ class _MenuScreenState extends State<MenuScreen> {
       backgroundColor: Colors.grey[100],
 
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            HomeScreen.of(context)?.changeTab(0);
+          },
+        ),
         title: const Text("Casa Colina"),
         centerTitle: true,
 
@@ -77,7 +83,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
-                      color: isSelected ? Colors.black : Colors.grey[300],
+                      color: isSelected ? Colors.brown : Colors.grey[300],
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Center(
@@ -134,65 +140,67 @@ class _MenuScreenState extends State<MenuScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
       builder: (_) {
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
 
-              // 🔥 ICONO GRANDE
-              const Icon(
-                Icons.picture_as_pdf,
-                size: 60,
-                color: Colors.red,
-              ),
-
-              const SizedBox(height: 15),
-
-              const Text(
-                "Descargar Menú",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                // 🔥 ICONO GRANDE
+                const Icon(
+                  Icons.picture_as_pdf,
+                  size: 60,
+                  color: Colors.red,
                 ),
-              ),
 
-              const SizedBox(height: 10),
+                const SizedBox(height: 15),
 
-              const Text(
-                "Obtén nuestro menú completo en formato PDF",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
-              ),
+                const Text(
+                  "Descargar Menú",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
-              // 🔘 BOTÓN
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown,
-                    padding: const EdgeInsets.all(16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                const Text(
+                  "Obtén nuestro menú completo en formato PDF",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 🔘 BOTÓN
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown,
+                      padding: const EdgeInsets.all(16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
+                    icon: const Icon(Icons.download, color: Colors.white),
+                    label: const Text(
+                      "Descargar Menú PDF",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _downloadPDF(context);
+                    },
                   ),
-                  icon: const Icon(Icons.download, color: Colors.white),
-                  label: const Text(
-                    "Descargar Menú PDF",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _downloadPDF(context);
-                  },
                 ),
-              ),
 
-              const SizedBox(height: 10),
-            ],
-          ),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),  
         );
       },
     );

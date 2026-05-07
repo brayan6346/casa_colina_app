@@ -156,54 +156,57 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
 
             const Spacer(),
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: isLoading
-                    ? null
-                    : () async {
-                        setState(() {
-                          isLoading = true;
-                          errorText = null;
-                        });
-
-                        // ⏳ simulación de verificación
-                        await Future.delayed(const Duration(seconds: 2));
-
-                        if (codeController.text == generatedCode) {
-                          // ✅ correcto
-                          navigatorKey.currentState!.pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (_) => const NameInputScreen(),
-                            ),
-                            (route) => false,
-                          );
-                        } else {
-                          // ❌ incorrecto
+            SafeArea(
+              top: false,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isLoading
+                      ? null
+                      : () async {
                           setState(() {
-                            isLoading = false;
-                            errorText = "Código incorrecto";
+                            isLoading = true;
+                            errorText = null;
                           });
-                        }
-                      },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(16),
+
+                          // ⏳ simulación de verificación
+                          await Future.delayed(const Duration(seconds: 2));
+
+                          if (codeController.text == generatedCode) {
+                            // ✅ correcto
+                            navigatorKey.currentState!.pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (_) => const NameInputScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          } else {
+                            // ❌ incorrecto
+                            setState(() {
+                              isLoading = false;
+                              errorText = "Código incorrecto";
+                            });
+                          }
+                        },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
+                  ),
+                  child: isLoading
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                            SizedBox(width: 10),
+                            Text("Verificando..."),
+                          ],
+                        )
+                      : const Text("Verificar"),
                 ),
-                child: isLoading
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          ),
-                          SizedBox(width: 10),
-                          Text("Verificando..."),
-                        ],
-                      )
-                    : const Text("Verificar"),
-              ),
+              ),  
             )
           ],
         ),
