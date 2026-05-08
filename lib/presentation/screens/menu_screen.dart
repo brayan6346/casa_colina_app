@@ -2,6 +2,7 @@ import 'package:casa_colina_app/presentation/screens/home_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../data/mock/products.dart';
@@ -214,13 +215,21 @@ class _MenuScreenState extends State<MenuScreen> {
 
 Future<void> _downloadPDF(BuildContext context) async {
   try {
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Descargando menú..."),
+      ),
+    );
+
     final dir = await getApplicationDocumentsDirectory();
+
     final filePath = "${dir.path}/menu.pdf";
 
     final dio = Dio();
 
-    //  CAMBIA POR TU PDF REAL
-    const url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+    const url =
+        "https://drive.google.com/uc?export=download&id=14iBUm5G_968pNn6nedKTzP3mQvUp6aLa";
 
     await dio.download(url, filePath);
 
@@ -229,10 +238,15 @@ Future<void> _downloadPDF(BuildContext context) async {
         content: Text("Menú descargado correctamente 📄"),
       ),
     );
+
+    //  ABRIR PDF AUTOMÁTICAMENTE
+    await OpenFilex.open(filePath);
+
   } catch (e) {
+
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Error al descargar el archivo ❌"),
+      SnackBar(
+        content: Text("Error al descargar: $e"),
       ),
     );
   }

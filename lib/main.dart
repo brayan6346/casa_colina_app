@@ -15,7 +15,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 🔔 CONFIGURACIÓN ANDROID
+  //  CONFIGURACIÓN ANDROID
   const AndroidInitializationSettings androidSettings =
       AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -24,7 +24,7 @@ Future<void> main() async {
 
   await notificationsPlugin.initialize(settings);
 
-  // 🔥 PEDIR PERMISO (Android 13+)
+  //  PEDIR PERMISO (Android 13+)
   await notificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      navigatorKey: navigatorKey, //  CLAVE
+      navigatorKey: navigatorKey, //CLAVE
       home: const LoginScreen(),
     );
   }
