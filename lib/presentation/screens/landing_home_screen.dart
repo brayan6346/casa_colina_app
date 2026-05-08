@@ -13,7 +13,7 @@ class LandingHomeScreen extends StatelessWidget {
           child: Column(
             children: [
 
-              // 🔥 HEADER PROFESIONAL
+              //  HEADER PROFESIONAL
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
@@ -35,7 +35,7 @@ class LandingHomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
 
-                    // 🔥 LOGO
+                    //  LOGO
                     Image.asset(
                       "assets/logo.png",
                       height: 55,
@@ -44,14 +44,14 @@ class LandingHomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // 🔥 HERO (IMAGEN PRINCIPAL)
+              //  HERO (IMAGEN PRINCIPAL)
               Stack(
                 children: [
                   SizedBox(
                     height: 620,
                     width: double.infinity,
                     child: Image.asset(
-                      "assets/Rectangle.jpg", // 👈 tu imagen
+                      "assets/Rectangle.jpg", 
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -110,7 +110,7 @@ class LandingHomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
 
-                            // 🔥 VER MENÚ
+                            //  VER MENÚ
                             AnimatedButton(
                               color: Colors.brown,
                               onTap: () {
@@ -133,7 +133,7 @@ class LandingHomeScreen extends StatelessWidget {
 
                             const SizedBox(width: 15),
 
-                            // 🔥 RESERVAR
+                            //  RESERVAR
                             AnimatedButton(
                               outlined: true,
                               color: Colors.white,
@@ -167,7 +167,7 @@ class LandingHomeScreen extends StatelessWidget {
                 ],
               ),
 
-              // 🔥 ACERCA DE
+              //  ACERCA DE
               Container(
                 color: Colors.grey[100],
                 padding: const EdgeInsets.all(20),
@@ -251,7 +251,7 @@ class LandingHomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // 🔥 HORARIOS
+              //  HORARIOS
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(

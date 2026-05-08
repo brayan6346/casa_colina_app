@@ -13,14 +13,14 @@ class UserProvider extends ChangeNotifier {
   String get address1 => _address1;
   String get address2 => _address2;
 
-  // 🔥 SET COMPLETO (correo)
+  //  SET COMPLETO (correo)
   void setUser(String name, String email) {
     _name = name;
     _email = email;
     notifyListeners();
   }
 
-  // 🔥 ACTUALIZAR DATOS DE CONFIGURACIÓN
+  //  ACTUALIZAR DATOS DE CONFIGURACIÓN
   void updateUserInfo({
     String? name,
     String? email,
@@ -36,20 +36,20 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // 🔥 SOLO NOMBRE Y CELULAR (flujo celular)
+  //  SOLO NOMBRE Y CELULAR (flujo celular)
   void setUserNameAndPhone(String name, String phone) {
     _name = name;
     _phone = phone;
     notifyListeners();
   }
 
-  // 🔥 SOLO EMAIL (por si lo necesitas)
+  //  SOLO EMAIL (por si lo necesitas)
   void setEmail(String email) {
     _email = email;
     notifyListeners();
   }
 
-  // 🔥 LIMPIAR SESIÓN
+  //  LIMPIAR SESIÓN
   void clearUser() {
     _name = "";
     _email = "";

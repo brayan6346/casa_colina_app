@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              // 👤 HEADER
+              //  HEADER
               Container(
                 padding: const EdgeInsets.all(20),
                 color: Colors.white,
@@ -89,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // 📋 OPCIONES
+              //  OPCIONES
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(

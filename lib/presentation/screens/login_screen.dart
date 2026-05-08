@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // 🖼 FONDO
+          //  FONDO
           Positioned.fill(
             child: Image.asset(
               "assets/Rectangle.jpg",
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
 
-          // 🌑 OVERLAY
+          //  OVERLAY
           Positioned.fill(
             child: Container(
               color: Colors.black.withOpacity(0.4),
@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
 
                   const Spacer(),
 
-                  // 📱 BOTÓN CELULAR
+                  //  BOTÓN CELULAR
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
 
                   const SizedBox(height: 15),
 
-                  // 📧 EMAIL
+                  //  EMAIL
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(

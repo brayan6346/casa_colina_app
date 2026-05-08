@@ -5,12 +5,12 @@ List<Product> postres = [
     name: "Crema No Volteada",
     description: "Deliciosa crema casera con caramelo.",
     price: 18,
-    image: "assets/parrilla.jpg",
+    image: "assets/crema_no_volteada.jpeg",
   ),
   Product(
     name: "Picarones & Miel de Casa Colina",
     description: "Picarones tradicionales acompañados de nuestra miel especial.",
     price: 26,
-    image: "assets/parrilla.jpg",
+    image: "assets/picarones_miel.jpg",
   ),
 ];

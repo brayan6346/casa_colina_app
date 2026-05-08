@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     currentIndex = widget.initialTab;
   }
 
-   // 👇 método para cambiar de tab
+   //  método para cambiar de tab
   void changeTab(int index) {
     setState(() {
       currentIndex = index;
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Positioned(
                         right: -6,
                         top: -6,
-                        child: IgnorePointer( // 🔥 NO BLOQUEA EL TAP
+                        child: IgnorePointer( //  NO BLOQUEA EL TAP
                           child: Container(
                             padding: const EdgeInsets.all(5),
                             decoration: const BoxDecoration(

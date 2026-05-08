@@ -220,7 +220,7 @@ class _ReservationScreenState extends State<ReservationScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                // 🔥 HEADER
+                //  HEADER
                 Row(
                   children: [
 
@@ -300,7 +300,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 30),
 
-                      // 👤 NOMBRE
+                      //  NOMBRE
                       TextFormField(
                         controller: nameController,
                         decoration:
@@ -315,7 +315,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 20),
 
-                      // 📧 EMAIL
+                      //  EMAIL
                       TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -336,7 +336,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 20),
 
-                      // 📱 TELÉFONO
+                      //  TELÉFONO
                       TextFormField(
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
@@ -357,7 +357,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 20),
 
-                      // 👥 PERSONAS
+                      //  PERSONAS
                       DropdownButtonFormField<String>(
                         value: selectedPeople,
                         decoration: inputDecoration("Número de personas"),
@@ -376,7 +376,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 20),
 
-                      // 📅 FECHA
+                      //  FECHA
                       GestureDetector(
                         onTap: pickDate,
                         child: Container(
@@ -403,7 +403,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 20),
 
-                      // ⏰ HORA
+                      //  HORA
                       DropdownButtonFormField<String>(
                         value: selectedTime,
                         decoration: inputDecoration("Selecciona una hora"),
@@ -422,7 +422,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 20),
 
-                      // 💬 MENSAJE
+                      //  MENSAJE
                       TextFormField(
                         controller: messageController,
                         maxLines: 4,
@@ -433,7 +433,7 @@ class _ReservationScreenState extends State<ReservationScreen>
 
                       const SizedBox(height: 30),
 
-                      // 🔥 BOTÓN
+                      //  BOTÓN
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(

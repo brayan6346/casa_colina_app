@@ -32,7 +32,7 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
   Timer? _timer;
 
   void _startTimer() {
-    _timer?.cancel(); // 👈 evita duplicados
+    _timer?.cancel(); //  evita duplicados
     seconds = 60;
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -59,8 +59,8 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
   }
 
   void _resendCode() {
-    _startTimer();   // 🔥 reinicia contador
-    _sendCode();     // 🔥 manda nuevo código
+    _startTimer();   //  reinicia contador
+    _sendCode();     //  manda nuevo código
   }
 
   bool isLoading = false;
@@ -170,11 +170,11 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
                             errorText = null;
                           });
 
-                          // ⏳ simulación de verificación
+                          //  simulación de verificación
                           await Future.delayed(const Duration(seconds: 2));
 
                           if (codeController.text == generatedCode) {
-                            // ✅ correcto
+                            //  correcto
                             if (widget.isUpdate) {
                               Navigator.pop(context, true); // Retorna éxito a la pantalla anterior
                             } else {
@@ -186,7 +186,7 @@ class _SmsCodeScreenState extends State<SmsCodeScreen> {
                               );
                             }
                           } else {
-                            // ❌ incorrecto
+                            //  incorrecto
                             setState(() {
                               isLoading = false;
                               errorText = "Código incorrecto";

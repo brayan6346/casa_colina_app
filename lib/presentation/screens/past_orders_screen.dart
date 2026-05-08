@@ -55,7 +55,7 @@ class PastOrdersScreen extends StatelessWidget {
     );
   }
 
-  // 🧾 CARD DE PEDIDO
+  //  CARD DE PEDIDO
   Widget orderCard(BuildContext context, Order order) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -68,7 +68,7 @@ class PastOrdersScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          // 🧾 ID + TOTAL
+          //  ID + TOTAL
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,7 +79,7 @@ class PastOrdersScreen extends StatelessWidget {
 
           const SizedBox(height: 5),
 
-          // 📅 FECHA + HORA
+          //  FECHA + HORA
           Text(
             "${order.date.day}/${order.date.month}/${order.date.year} • ${order.time}",
             style: const TextStyle(color: Colors.grey),
@@ -87,14 +87,14 @@ class PastOrdersScreen extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          // 📦 PRODUCTOS
+          //  PRODUCTOS
           ...order.items.map((item) {
             return Text("${item.quantity}x ${item.product.name}");
           }),
 
           const SizedBox(height: 15),
 
-          // 🔁 BOTÓN REORDENAR
+          //  BOTÓN REORDENAR
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
@@ -108,10 +108,10 @@ class PastOrdersScreen extends StatelessWidget {
               onPressed: () {
                 final cart = Provider.of<CartProvider>(context, listen: false);
 
-                // 🔁 recargar carrito
+                //  recargar carrito
                 cart.reorder(order);
 
-                // 🧭 ir directo al carrito
+                //  ir directo al carrito
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (_) => const HomeScreen(initialTab: 2),

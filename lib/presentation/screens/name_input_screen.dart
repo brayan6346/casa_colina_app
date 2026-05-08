@@ -92,14 +92,14 @@ class _NameInputScreenState extends State<NameInputScreen> {
                       return;
                     }
 
-                    // 🔥 GUARDAR NOMBRE Y CELULAR EN PROVIDER
+                    //  GUARDAR NOMBRE Y CELULAR EN PROVIDER
                     Provider.of<UserProvider>(context, listen: false)
                         .setUserNameAndPhone(
                           controller.text.trim(),
                           widget.phone,
                         );
 
-                    // 🚀 NAVEGAR AL HOME
+                    //  NAVEGAR AL HOME
                     navigatorKey.currentState!.pushAndRemoveUntil(
                       PageRouteBuilder(
                         pageBuilder: (_, __, ___) => const HomeScreen(),

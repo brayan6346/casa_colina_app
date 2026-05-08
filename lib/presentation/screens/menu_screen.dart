@@ -66,7 +66,7 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
         ],
 
-        // 🔥 CHIPS PRO
+        //  CHIPS PRO
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: SizedBox(
@@ -108,7 +108,7 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
       ),
 
-      // 🔥 CONTENIDO SEGÚN CHIP
+      //  CONTENIDO SEGÚN CHIP
       body: IndexedStack(
         index: selectedIndex,
         children: [
@@ -152,7 +152,7 @@ class _MenuScreenState extends State<MenuScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
 
-                // 🔥 ICONO GRANDE
+                //  ICONO GRANDE
                 const Icon(
                   Icons.picture_as_pdf,
                   size: 60,
@@ -179,7 +179,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
                 const SizedBox(height: 20),
 
-                // 🔘 BOTÓN
+                //  BOTÓN
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
@@ -219,7 +219,7 @@ Future<void> _downloadPDF(BuildContext context) async {
 
     final dio = Dio();
 
-    // 🔗 CAMBIA POR TU PDF REAL
+    //  CAMBIA POR TU PDF REAL
     const url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
 
     await dio.download(url, filePath);

@@ -75,7 +75,7 @@ class FavoritesScreen extends StatelessWidget {
       child: Row(
         children: [
 
-          // 🖼 IMAGEN
+          //  IMAGEN
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
@@ -88,7 +88,7 @@ class FavoritesScreen extends StatelessWidget {
 
           const SizedBox(width: 10),
 
-          // 📄 INFO
+          //  INFO
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,10 +122,10 @@ class FavoritesScreen extends StatelessWidget {
             ),
           ),
 
-          // ❤️ + ➕ BOTONES
+          //  BOTONES
           Column(
             children: [
-              // ❤️ quitar favorito
+              //  quitar favorito
               IconButton(
                 icon: const Icon(Icons.favorite, color: Colors.red),
                 onPressed: () {
@@ -134,7 +134,7 @@ class FavoritesScreen extends StatelessWidget {
                 },
               ),
 
-              // ➕ agregar al carrito
+              //  agregar al carrito
               IconButton(
                 icon: const Icon(Icons.add_circle, color: Colors.black),
                 onPressed: () {

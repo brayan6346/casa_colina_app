@@ -105,7 +105,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> {
 
                 const SizedBox(width: 10),
 
-                // 📱 INPUT
+                //  INPUT
                 Expanded(
                   child: TextField(
                     controller: controller,

@@ -60,8 +60,7 @@ class OrderScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // 👇 te manda al menú
-                  // (igual que hiciste en carrito)
+                  //  te manda al menú
                   HomeScreen.of(context)?.changeTab(1);
                 },
                 child: const Text(
@@ -109,13 +108,13 @@ class OrderScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            // 🧾 ID
+            //  ID
             Text("Pedido ${order.id}",
                 style: const TextStyle(color: Colors.grey)),
 
             const SizedBox(height: 20),
 
-            // 📍 TIMELINE
+            //  TIMELINE
             buildStep(
               "Pedido Recibido",
               order.status.index >= 0,
@@ -142,7 +141,7 @@ class OrderScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // ⏰ HORA
+            //  HORA
             infoCard(
               Icons.access_time,
               "Hora de Recogida",
@@ -151,7 +150,7 @@ class OrderScreen extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // 📍 DIRECCIÓN
+            //  DIRECCIÓN
             infoCard(
               Icons.location_on,
               "Dirección del Restaurante",
@@ -160,7 +159,7 @@ class OrderScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 🧾 RESUMEN
+            //  RESUMEN
             const Text("Resumen del Pedido",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
@@ -195,7 +194,7 @@ class OrderScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 📞 BOTONES
+            //  BOTONES
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -227,7 +226,7 @@ class OrderScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // luego puedes integrar Google Maps
+                  // Google Maps
                 },
                 icon: const Icon(Icons.map),
                 label: const Text("Ver Mapa"),
@@ -239,7 +238,7 @@ class OrderScreen extends StatelessWidget {
     );
   }
 
-  // 🔥 STEP TIMELINE
+  //  STEP TIMELINE
   Widget buildStep(String title, bool active, {String? subtitle}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,7 +282,7 @@ class OrderScreen extends StatelessWidget {
     );
   }
 
-  // 📦 CARD INFO
+  //  CARD INFO
   Widget infoCard(IconData icon, String title, String value) {
     return Container(
       padding: const EdgeInsets.all(14),

@@ -27,7 +27,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
   void initState() {
     super.initState();
 
-    // 👇 Escuchar focus para actualizar UI
+    //  Escuchar focus para actualizar UI
     nameFocus.addListener(() => setState(() {}));
     emailFocus.addListener(() => setState(() {}));
   }
@@ -64,7 +64,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
 
     setState(() => isLoading = true);
 
-    // 🔥 GUARDAR USUARIO
+    //  GUARDAR USUARIO
     Provider.of<UserProvider>(context, listen: false).setUser(
       nameController.text.trim(),
       emailController.text.trim(),
@@ -106,7 +106,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             border: Border.all(
-              color: isFocused ? const Color.fromARGB(255, 255, 2, 150) : Colors.grey.shade300, // 🔥 cambia color
+              color: isFocused ? const Color.fromARGB(255, 255, 2, 150) : Colors.grey.shade300, //  cambia color
               width: 2,
             ),
             borderRadius: BorderRadius.circular(12),
@@ -124,8 +124,8 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
               hintText: hint,
               hintStyle: TextStyle(
                 color: isFocused
-                    ? const Color.fromARGB(255, 255, 206, 231)   // 🔥 color cuando está activo
-                    : Colors.grey.shade500,  // 🔥 color normal
+                    ? const Color.fromARGB(255, 255, 206, 231)   //  color cuando está activo
+                    : Colors.grey.shade500,  //  color normal
               ),
             ),
           ),
@@ -177,7 +177,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
 
             const SizedBox(height: 40),
 
-            // 👤 NOMBRE
+            //  NOMBRE
             _inputField(
               hint: "Tu nombre",
               controller: nameController,
@@ -187,7 +187,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
 
             const SizedBox(height: 20),
 
-            // 📧 EMAIL
+            //  EMAIL
             _inputField(
               hint: "correo@email.com",
               controller: emailController,

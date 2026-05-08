@@ -45,10 +45,10 @@ class CartProvider extends ChangeNotifier {
   List<CartItem> get items => _items;
   List<Order> get orders => _orders;
 
-  // 🔥 últimos 3 pedidos
+  //  últimos 3 pedidos
   List<Order> get recentOrders => _orders.reversed.take(3).toList();
 
-  // 🔥 pedido actual (último)
+  //  pedido actual (último)
   Order? get currentOrder =>
       _orders.isNotEmpty ? _orders.last : null;
 
@@ -130,15 +130,15 @@ class CartProvider extends ChangeNotifier {
 
     _orders.add(newOrder);
 
-    // 🔥 limpiar carrito
+    //  limpiar carrito
     _items.clear();
     notifyListeners();
 
-    // 🔄 simular proceso individual
+    //  simular proceso individual
     _simulateOrder(newOrder);
   }
 
-  // 🔥 PROCESO POR PEDIDO (CLAVE)
+  //  PROCESO POR PEDIDO (CLAVE)
   void _simulateOrder(Order order) {
     Future.delayed(const Duration(seconds: 3), () {
       order.status = OrderStatus.preparing;
@@ -154,12 +154,12 @@ class CartProvider extends ChangeNotifier {
       order.status = OrderStatus.delivered;
       notifyListeners();
 
-// 🔔 AQUÍ LLAMAS LA NOTIFICACIÓN
+//  AQUÍ LLAMAS LA NOTIFICACIÓN
       _sendNotification(order);
     });
   }
 
-  // 🔔 AQUÍ VA LA FUNCIÓN
+  //  AQUÍ VA LA FUNCIÓN
   void _sendNotification(Order order) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
@@ -180,7 +180,7 @@ class CartProvider extends ChangeNotifier {
     );
   }
 
-  // 🔁 VOLVER A PEDIR
+  //  VOLVER A PEDIR
   void reorder(Order order) {
     _items.clear();
 
