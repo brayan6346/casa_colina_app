@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      navigatorKey: navigatorKey, // 👈 🔥 CLAVE
+      navigatorKey: navigatorKey, //  CLAVE
       home: const LoginScreen(),
     );
   }
