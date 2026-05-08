@@ -1,6 +1,7 @@
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../providers/cart_provider.dart';
 
 class OrderScreen extends StatelessWidget {
@@ -226,7 +227,7 @@ class OrderScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Google Maps
+                  openMap();// Google Maps
                 },
                 icon: const Icon(Icons.map),
                 label: const Text("Ver Mapa"),
@@ -305,5 +306,19 @@ class OrderScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> openMap() async {
+
+    final Uri url = Uri.parse(
+      "https://maps.app.goo.gl/VYWB2ukzuLxXJwf89",
+    );
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    }
   }
 }
