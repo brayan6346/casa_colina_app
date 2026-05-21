@@ -23,7 +23,7 @@ class _AdminLoginScreenState
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Administrador"),
+        title: const Text(""),
       ),
 
       body: Padding(
@@ -43,7 +43,7 @@ class _AdminLoginScreenState
             const SizedBox(height: 20),
 
             const Text(
-              "Acceso Administrador",
+              "Acceso Admin",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

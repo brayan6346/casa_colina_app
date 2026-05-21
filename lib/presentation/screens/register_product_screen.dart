@@ -170,6 +170,10 @@ class _RegisterProductScreenState
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.brown,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+
 
         title: const Text(
           "Registrar Plato",

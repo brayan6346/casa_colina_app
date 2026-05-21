@@ -45,7 +45,9 @@ class ProfileScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          user.name.isEmpty ? "Invitado" : user.name,
+                          HomeScreen.adminGlobal
+                          ? "Admin"
+                          : (user.name.isEmpty ? "" : user.name),
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -59,15 +61,43 @@ class ProfileScreen extends StatelessWidget {
                           style: const TextStyle(color: Colors.grey),
                         ),
 
-                        if (user.name.isNotEmpty) ...[
+                        if (user.name.isNotEmpty || HomeScreen.adminGlobal) ...[
                           const SizedBox(height: 8),
                           InkWell(
                             onTap: () {
-                              user.clearUser();
-                              Provider.of<PaymentProvider>(context, listen: false).clearCard();
+                              // USER
+                              Provider.of<UserProvider>(
+                                context,
+                                listen: false,
+                              ).clearUser();
+
+                              // CARRITO
+                              Provider.of<CartProvider>(
+                                context,
+                                listen: false,
+                              ).clearCart();
+
+                              // FAVORITOS
+                              Provider.of<FavoriteProvider>(
+                                context,
+                                listen: false,
+                              ).clearFavorites();
+
+                              // TARJETAS
+                              Provider.of<PaymentProvider>(
+                                context,
+                                listen: false,
+                              ).clearCard();
+
+                              // ADMIN
+                              HomeScreen.adminGlobal = false;
+
+                              // IR AL LOGIN
                               Navigator.pushAndRemoveUntil(
                                 context,
-                                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                                MaterialPageRoute(
+                                  builder: (_) => const LoginScreen(),
+                                ),
                                 (route) => false,
                               );
                             },

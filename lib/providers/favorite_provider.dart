@@ -18,4 +18,11 @@ class FavoriteProvider extends ChangeNotifier {
   bool isFavorite(Product product) {
     return _favorites.contains(product);
   }
+
+  void clearFavorites() {
+
+    favorites.clear();
+
+    notifyListeners();
+  }
 }

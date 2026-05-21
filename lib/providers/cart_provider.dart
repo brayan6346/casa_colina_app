@@ -195,4 +195,13 @@ class CartProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void clearCart() {
+
+    items.clear();
+
+    orders.clear();
+
+    notifyListeners();
+  }
 }
