@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:casa_colina_app/presentation/screens/admin_login_screen.dart';
 import 'package:casa_colina_app/presentation/screens/email_form_screen.dart';
 import 'package:casa_colina_app/presentation/screens/phone_input_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,14 @@ class LoginScreen extends StatelessWidget {
                 size: 30,
               ),
               onPressed: () {
-                _mostrarDialogoAdmin(context);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AdminLoginScreen(),
+                  ),
+                );
+
               },
             ),
           ),
@@ -148,69 +156,6 @@ class LoginScreen extends StatelessWidget {
         builder: (_) => const HomeScreen(),
       ),
       (route) => false,
-    );
-  }
-
-  void _mostrarDialogoAdmin(BuildContext context) {
-
-    final TextEditingController codigoController =
-        TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-
-        return AlertDialog(
-          title: const Text("Acceso Administrador"),
-
-          content: TextField(
-            controller: codigoController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: "Código de administrador",
-              border: OutlineInputBorder(),
-            ),
-          ),
-
-          actions: [
-
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("Cancelar"),
-            ),
-
-            ElevatedButton(
-              onPressed: () {
-
-                if (codigoController.text == "1234") {
-
-                  Navigator.pop(context);
-
-                  navigatorKey.currentState!.pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (_) => const HomeScreen(
-                        isAdmin: true,
-                      ),
-                    ),
-                    (route) => false,
-                  );
-
-                } else {
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Código incorrecto"),
-                    ),
-                  );
-                }
-              },
-              child: const Text("Confirmar"),
-            ),
-          ],
-        );
-      },
     );
   }
 }

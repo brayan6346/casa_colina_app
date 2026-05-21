@@ -102,18 +102,9 @@ class _ProductCardState extends State<ProductCard> {
                   ],
                 ),
 
-                const SizedBox(height: 6),
+                const SizedBox(height: 8),
 
-                // Descripción
-                Text(
-                  product.description,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey,
-                  ),
-                ),
-
-                const SizedBox(height: 10),
+                
 
                 // Botón
                 Center(

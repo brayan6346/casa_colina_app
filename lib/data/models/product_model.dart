@@ -44,4 +44,16 @@ class Product {
       image: json["imagen"],
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+
+    return identical(this, other) ||
+
+        other is Product &&
+        other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

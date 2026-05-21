@@ -1,5 +1,7 @@
 import 'package:casa_colina_app/data/models/product_model.dart';
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
+import 'package:casa_colina_app/presentation/screens/product_detail_screen.dart';
+import 'package:casa_colina_app/presentation/screens/register_product_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
 import 'package:casa_colina_app/service/plato_service.dart';
 import 'package:dio/dio.dart';
@@ -12,7 +14,10 @@ import '../screens/cart_screen.dart';
 import '../../presentation/widgets/product_card.dart';
 
 class MenuScreen extends StatefulWidget {
-  const MenuScreen({super.key});
+
+  const MenuScreen({
+    super.key,
+  });
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();
@@ -107,6 +112,20 @@ class _MenuScreenState extends State<MenuScreen> {
         centerTitle: true,
 
         actions: [
+
+          if(HomeScreen.adminGlobal)
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        const RegisterProductScreen(),
+                  ),
+                );
+              },
+            ),
           IconButton(
             icon: const Icon(Icons.download_rounded),
             onPressed: () {
@@ -217,8 +236,26 @@ class _MenuScreenState extends State<MenuScreen> {
             vertical: 8,
           ),
 
-          child: ProductCard(
-            product: products[index],
+          child: GestureDetector(
+
+            onTap: () {
+
+              Navigator.push(
+                context,
+
+                MaterialPageRoute(
+                  builder: (_) =>
+                      ProductDetailScreen(
+                      idPlato: products[index].id,
+                  ),
+                ),
+              );
+
+            },
+
+            child: ProductCard(
+              product: products[index],
+            ),
           ),
         );
       },

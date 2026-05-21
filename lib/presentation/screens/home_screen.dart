@@ -8,11 +8,11 @@ import '../screens/order_screen.dart';
 import '../screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  static bool adminGlobal = false;
+
   final int initialTab;
 
-  final bool isAdmin;
-
-  const HomeScreen({super.key, this.initialTab = 0, this.isAdmin = false});
+  const HomeScreen({super.key, this.initialTab = 0});
 
   static _HomeScreenState? of(BuildContext context) {
     return context.findAncestorStateOfType<_HomeScreenState>();
@@ -25,18 +25,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late int currentIndex;
 
-  final List<Widget> screens = [
-    const LandingHomeScreen(),
-    const MenuScreen(),
-    const CartScreen(),
-    const OrderScreen(),
-    const ProfileScreen(),
-  ];
+  late final List<Widget> screens;
 
   @override
   void initState() {
     super.initState();
     currentIndex = widget.initialTab;
+    screens = [
+      const LandingHomeScreen(),
+      MenuScreen(),
+      const CartScreen(),
+      const OrderScreen(),
+      const ProfileScreen(),
+    ];
   }
 
    //  método para cambiar de tab

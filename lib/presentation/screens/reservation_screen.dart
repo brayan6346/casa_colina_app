@@ -1,3 +1,4 @@
+import 'package:casa_colina_app/service/reservation_service.dart';
 import 'package:flutter/material.dart';
 
 class ReservationScreen extends StatefulWidget {
@@ -82,11 +83,35 @@ class _ReservationScreenState extends State<ReservationScreen>
 
     setState(() => isLoading = true);
 
-    await Future.delayed(const Duration(seconds: 2));
+    final success =
+        await ReservationService.registrarReserva(
+
+      nombre: nameController.text,
+
+      correo: emailController.text,
+
+      telefono: phoneController.text,
+
+      personas: selectedPeople!,
+
+      fecha:
+          "${selectedDate!.year}-${selectedDate!.month}-${selectedDate!.day}",
+
+      hora: selectedTime!,
+
+      mensaje: messageController.text,
+    );
 
     setState(() => isLoading = false);
 
     if (!mounted) return;
+
+    if (!success) {
+
+      showError("Error al registrar reserva");
+
+      return;
+    }
 
     showDialog(
       context: context,
