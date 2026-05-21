@@ -1,12 +1,49 @@
+import 'package:casa_colina_app/data/models/landing_model.dart';
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
 import 'package:casa_colina_app/presentation/screens/reservation_screen.dart';
+import 'package:casa_colina_app/service/landing_service.dart';
 import 'package:flutter/material.dart';
 
-class LandingHomeScreen extends StatelessWidget {
-  const LandingHomeScreen({super.key});
+class LandingHomeScreen extends StatefulWidget {
+
+  const LandingHomeScreen({
+    super.key,
+  });
+
+  @override
+  State<LandingHomeScreen> createState() =>
+      _LandingHomeScreenState();
+}
+
+class _LandingHomeScreenState
+    extends State<LandingHomeScreen> {
+
+  bool isLoading = true;
+
+  LandingModel? landing;    
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (landing == null) {
+
+      return const Scaffold(
+        body: Center(
+          child: Text(
+            "No se pudo cargar la información",
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -50,9 +87,14 @@ class LandingHomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 620,
                     width: double.infinity,
-                    child: Image.asset(
-                      "assets/Rectangle.jpg", 
+                    child: Image.network(
+                      landing!.imagenHero, 
                       fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return const Center(
+                          child: Icon(Icons.image_not_supported),
+                        );
+                      },
                     ),
                   ),
 
@@ -75,9 +117,9 @@ class LandingHomeScreen extends StatelessWidget {
                   Positioned.fill(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
-                          "Sabores con historia,\ntradición con estilo",
+                          landing!.tituloHero,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -90,7 +132,7 @@ class LandingHomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 15),
                         Text(
-                          "Una experiencia gastronómica única",
+                          landing!.subtituloHero,
                           style: TextStyle(color: Colors.white70),
                         ),
                       ],
@@ -192,10 +234,15 @@ class LandingHomeScreen extends StatelessWidget {
                         Expanded(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              "assets/fire.png",
+                            child: Image.network(
+                              landing!.imagenHistoria,
                               height: 200,
                               fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) {
+                                return const Center(
+                                  child: Icon(Icons.image_not_supported),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -203,7 +250,7 @@ class LandingHomeScreen extends StatelessWidget {
                         const SizedBox(width: 15),
 
                         // texto
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -218,7 +265,7 @@ class LandingHomeScreen extends StatelessWidget {
                               SizedBox(height: 5),
 
                               Text(
-                                "Casa Colina nació en 2010 combinando tradición y modernidad.",
+                                landing!.historia,
                               ),
 
                               SizedBox(height: 10),
@@ -229,7 +276,7 @@ class LandingHomeScreen extends StatelessWidget {
                               ),
 
                               Text(
-                                "Brindar una experiencia gastronómica única.",
+                                landing!.mision,
                               ),
 
                               SizedBox(height: 10),
@@ -240,7 +287,7 @@ class LandingHomeScreen extends StatelessWidget {
                               ),
 
                               Text(
-                                "Ser un referente culinario en la ciudad.",
+                                landing!.vision,
                               ),
                             ],
                           ),
@@ -275,7 +322,7 @@ class LandingHomeScreen extends StatelessWidget {
                           child: _card(
                             title: "Horarios",
                             content:
-                                "Lunes - Jueves: 12:00 - 22:00\nViernes - Sábado: 12:00 - 23:00\nDomingo: 12:00 - 20:00",
+                                landing!.horarios,
                           ),
                         ),
 
@@ -286,7 +333,7 @@ class LandingHomeScreen extends StatelessWidget {
                           child: _card(
                             title: "Ubicación",
                             content:
-                                "Av. Principal 123\nMiraflores\nLima, Perú",
+                                landing!.ubicacion,
                           ),
                         ),
                       ],
@@ -299,6 +346,38 @@ class LandingHomeScreen extends StatelessWidget {
         ),
       ),  
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    cargarLanding();
+  }
+
+  Future<void> cargarLanding() async {
+
+    try {
+
+      final data =
+          await LandingService.obtenerLanding();
+
+      setState(() {
+
+        landing =
+            LandingModel.fromJson(data);
+
+        isLoading = false;
+      });
+
+    } catch (e) {
+
+      print(e);
+
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   Widget _card({required String title, required String content}) {
