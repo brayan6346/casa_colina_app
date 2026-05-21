@@ -10,7 +10,9 @@ import '../screens/profile_screen.dart';
 class HomeScreen extends StatefulWidget {
   final int initialTab;
 
-  const HomeScreen({super.key, this.initialTab = 0});
+  final bool isAdmin;
+
+  const HomeScreen({super.key, this.initialTab = 0, this.isAdmin = false});
 
   static _HomeScreenState? of(BuildContext context) {
     return context.findAncestorStateOfType<_HomeScreenState>();

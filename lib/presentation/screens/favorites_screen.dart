@@ -78,7 +78,7 @@ class FavoritesScreen extends StatelessWidget {
           //  IMAGEN
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
+            child: Image.network(
               product.image,
               width: 90,
               height: 90,

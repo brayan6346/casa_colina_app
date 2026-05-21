@@ -30,6 +30,21 @@ class LoginScreen extends StatelessWidget {
           ),
 
           // CONTENIDO
+
+          Positioned(
+            top: 50,
+            right: 20,
+            child: IconButton(
+              icon: const Icon(
+                Icons.admin_panel_settings,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () {
+                _mostrarDialogoAdmin(context);
+              },
+            ),
+          ),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -133,6 +148,69 @@ class LoginScreen extends StatelessWidget {
         builder: (_) => const HomeScreen(),
       ),
       (route) => false,
+    );
+  }
+
+  void _mostrarDialogoAdmin(BuildContext context) {
+
+    final TextEditingController codigoController =
+        TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+
+        return AlertDialog(
+          title: const Text("Acceso Administrador"),
+
+          content: TextField(
+            controller: codigoController,
+            obscureText: true,
+            decoration: const InputDecoration(
+              labelText: "Código de administrador",
+              border: OutlineInputBorder(),
+            ),
+          ),
+
+          actions: [
+
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancelar"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+
+                if (codigoController.text == "1234") {
+
+                  Navigator.pop(context);
+
+                  navigatorKey.currentState!.pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (_) => const HomeScreen(
+                        isAdmin: true,
+                      ),
+                    ),
+                    (route) => false,
+                  );
+
+                } else {
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Código incorrecto"),
+                    ),
+                  );
+                }
+              },
+              child: const Text("Confirmar"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

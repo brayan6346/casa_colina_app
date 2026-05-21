@@ -1,18 +1,12 @@
+import 'package:casa_colina_app/data/models/product_model.dart';
 import 'package:casa_colina_app/presentation/screens/home_screen.dart';
 import 'package:casa_colina_app/providers/cart_provider.dart';
+import 'package:casa_colina_app/service/plato_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../data/mock/products.dart';
-import '../../../data/mock/fondos.dart';
-import '../../../data/mock/parrillas.dart';
-import '../../../data/mock/cortesRes.dart';
-import '../../../data/mock/ensaladas.dart';
-import '../../../data/mock/hamburguesas.dart';
-import '../../../data/mock/postres.dart';
-import '../../../data/mock/bebidas.dart';
 import '../screens/cart_screen.dart';
 
 import '../../presentation/widgets/product_card.dart';
@@ -25,7 +19,12 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+
   int selectedIndex = 0;
+
+  bool isLoading = true;
+
+  List<Product> platos = [];
 
   final List<String> categories = [
     "Entradas",
@@ -39,7 +38,53 @@ class _MenuScreenState extends State<MenuScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    cargarPlatos();
+  }
+
+  Future<void> cargarPlatos() async {
+
+    try {
+
+      final data = await PlatoService.listarPlatos();
+
+      setState(() {
+
+        platos = data.map<Product>((item) {
+
+          return Product.fromJson(item);
+
+        }).toList();
+
+        isLoading = false;
+
+      });
+
+    } catch (e) {
+
+      print(e);
+
+      setState(() {
+        isLoading = false;
+      });
+
+    }
+  }
+
+  List<Product> obtenerPlatosPorCategoria(String categoria) {
+
+    return platos.where((plato) {
+
+      return plato.category == categoria;
+
+    }).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
 
@@ -50,12 +95,15 @@ class _MenuScreenState extends State<MenuScreen> {
             HomeScreen.of(context)?.changeTab(0);
           },
         ),
-        title: const Text("Nuestro Menú",
+
+        title: const Text(
+          "Nuestro Menú",
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w500,
           ),
         ),
+
         centerTitle: true,
 
         actions: [
@@ -67,36 +115,58 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
         ],
 
-        //  CHIPS PRO
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
+
           child: SizedBox(
             height: 60,
+
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               itemCount: categories.length,
+
               itemBuilder: (context, index) {
+
                 final isSelected = selectedIndex == index;
 
                 return GestureDetector(
                   onTap: () {
+
                     setState(() {
                       selectedIndex = index;
                     });
+
                   },
+
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 5,
+                      vertical: 10,
+                    ),
+
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
+
                     decoration: BoxDecoration(
-                      color: isSelected ? Colors.brown : Colors.grey[300],
+                      color: isSelected
+                          ? Colors.brown
+                          : Colors.grey[300],
+
                       borderRadius: BorderRadius.circular(25),
                     ),
+
                     child: Center(
                       child: Text(
                         categories[index],
+
                         style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected
+                              ? Colors.white
+                              : Colors.black,
+
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -109,31 +179,47 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
       ),
 
-      //  CONTENIDO SEGÚN CHIP
-      body: IndexedStack(
-        index: selectedIndex,
-        children: [
-          buildList(entradas),
-          buildList(fondos),
-          buildList(parrillas),
-          buildList(cortesRes),
-          buildList(ensaladas),
-          buildList(hamburguesas),
-          buildList(postres),
-          buildList(bebidas),
-        ],
-      ),
+      body: isLoading
+
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+
+          : buildList(
+              obtenerPlatosPorCategoria(
+                categories[selectedIndex],
+              ),
+            ),
     );
   }
 
-  Widget buildList(List products) {
+  Widget buildList(List<Product> products) {
+
+    if (products.isEmpty) {
+
+      return const Center(
+        child: Text(
+          "No hay platos disponibles",
+        ),
+      );
+    }
+
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 10),
+
       itemCount: products.length,
+
       itemBuilder: (context, index) {
+
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: ProductCard(product: products[index]),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+
+          child: ProductCard(
+            product: products[index],
+          ),
         );
       },
     );
