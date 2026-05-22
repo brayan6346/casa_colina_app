@@ -128,291 +128,294 @@ class _ProductDetailScreenState
               ),
 
               Expanded(
-                child: Container(
+                child:SafeArea(
+                  top: false,
+                  child: Container(
 
-                  width: double.infinity,
+                    width: double.infinity,
 
-                  padding: const EdgeInsets.all(25),
+                    padding: const EdgeInsets.all(25),
 
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
 
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(35),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(35),
+                      ),
                     ),
-                  ),
 
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
 
-                    children: [
+                      children: [
 
-                      // CATEGORIA
-                      Container(
-                        padding:
-                            const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 6,
-                        ),
-
-                        decoration: BoxDecoration(
-                          color: Colors.brown.shade100,
-
-                          borderRadius:
-                              BorderRadius.circular(30),
-                        ),
-
-                        child: Text(
-                          product.category,
-
-                          style: const TextStyle(
-                            color: Colors.brown,
-                            fontWeight:
-                                FontWeight.bold,
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 18),
-
-                      // NOMBRE
-                      Text(
-                        product.name,
-
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontWeight:
-                              FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 15),
-
-                      // PRECIO
-                      Text(
-                        "S/ ${product.price.toStringAsFixed(2)}",
-
-                        style: const TextStyle(
-                          fontSize: 24,
-                          color: Colors.brown,
-                          fontWeight:
-                              FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // DESCRIPCIÓN
-                      const Text(
-                        "Descripción",
-
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight:
-                              FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      Text(
-                        product.description,
-
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 16,
-                          height: 1.5,
-                        ),
-                      ),
-
-                      const Spacer(),
-
-                      // CANTIDAD + SUBTOTAL
-                      Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment
-                                .spaceBetween,
-
-                        children: [
-
-                          // CONTADOR
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-
-                              borderRadius:
-                                  BorderRadius.circular(
-                                      20),
-                            ),
-
-                            child: Row(
-                              children: [
-
-                                IconButton(
-                                  onPressed: () {
-
-                                    if(quantity > 1) {
-
-                                      setState(() {
-                                        quantity--;
-                                      });
-                                    }
-                                  },
-
-                                  icon: const Icon(
-                                    Icons.remove,
-                                  ),
-                                ),
-
-                                Text(
-                                  quantity.toString(),
-
-                                  style:
-                                      const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight:
-                                        FontWeight.bold,
-                                  ),
-                                ),
-
-                                IconButton(
-                                  onPressed: () {
-
-                                    setState(() {
-                                      quantity++;
-                                    });
-
-                                  },
-
-                                  icon: const Icon(
-                                    Icons.add,
-                                  ),
-                                ),
-                              ],
-                            ),
+                        // CATEGORIA
+                        Container(
+                          padding:
+                              const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 6,
                           ),
 
-                          // SUBTOTAL
-                          Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.end,
+                          decoration: BoxDecoration(
+                            color: Colors.brown.shade100,
 
-                            children: [
-
-                              const Text(
-                                "Subtotal",
-
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                ),
-                              ),
-
-                              Text(
-                                "S/ ${subtotal.toStringAsFixed(2)}",
-
-                                style:
-                                    const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight:
-                                      FontWeight.bold,
-                                  color: Colors.brown,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 25),
-
-                      // BOTON
-                      SizedBox(
-                        width: double.infinity,
-                        height: 60,
-
-                        child:
-                            ElevatedButton.icon(
-
-                          style:
-                              ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.brown,
-
-                            shape:
-                                RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(
-                                      20),
-                            ),
+                            borderRadius:
+                                BorderRadius.circular(30),
                           ),
 
-                          onPressed: () {
+                          child: Text(
+                            product.category,
 
-                            final cart =
-                                Provider.of<
-                                    CartProvider>(
-                              context,
-                              listen: false,
-                            );
-
-                            for(int i = 0;
-                                i < quantity;
-                                i++) {
-
-                              cart.addToCart(
-                                product,
-                              );
-                            }
-
-                            ScaffoldMessenger.of(
-                                    context)
-                                .showSnackBar(
-
-                              const SnackBar(
-                                backgroundColor:
-                                    Colors.green,
-
-                                content: Text(
-                                  "Producto agregado al carrito",
-                                ),
-                              ),
-                            );
-
-                            Navigator.pushAndRemoveUntil(
-                              context,
-
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    const HomeScreen(
-                                  initialTab: 2,
-                                ),
-                              ),
-
-                              (route) => false,
-                            );
-                          },
-
-                          icon: const Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ),
-
-                          label: const Text(
-                            "Agregar al carrito",
-
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                            style: const TextStyle(
+                              color: Colors.brown,
                               fontWeight:
                                   FontWeight.bold,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+
+                        const SizedBox(height: 18),
+
+                        // NOMBRE
+                        Text(
+                          product.name,
+
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight:
+                                FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 15),
+
+                        // PRECIO
+                        Text(
+                          "S/ ${product.price.toStringAsFixed(2)}",
+
+                          style: const TextStyle(
+                            fontSize: 24,
+                            color: Colors.brown,
+                            fontWeight:
+                                FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // DESCRIPCIÓN
+                        const Text(
+                          "Descripción",
+
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight:
+                                FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Text(
+                          product.description,
+
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 16,
+                            height: 1.5,
+                          ),
+                        ),
+
+                        const Spacer(),
+
+                        // CANTIDAD + SUBTOTAL
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment
+                                  .spaceBetween,
+
+                          children: [
+
+                            // CONTADOR
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+
+                                borderRadius:
+                                    BorderRadius.circular(
+                                        20),
+                              ),
+
+                              child: Row(
+                                children: [
+
+                                  IconButton(
+                                    onPressed: () {
+
+                                      if(quantity > 1) {
+
+                                        setState(() {
+                                          quantity--;
+                                        });
+                                      }
+                                    },
+
+                                    icon: const Icon(
+                                      Icons.remove,
+                                    ),
+                                  ),
+
+                                  Text(
+                                    quantity.toString(),
+
+                                    style:
+                                        const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight:
+                                          FontWeight.bold,
+                                    ),
+                                  ),
+
+                                  IconButton(
+                                    onPressed: () {
+
+                                      setState(() {
+                                        quantity++;
+                                      });
+
+                                    },
+
+                                    icon: const Icon(
+                                      Icons.add,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // SUBTOTAL
+                            Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.end,
+
+                              children: [
+
+                                const Text(
+                                  "Subtotal",
+
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+
+                                Text(
+                                  "S/ ${subtotal.toStringAsFixed(2)}",
+
+                                  style:
+                                      const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight:
+                                        FontWeight.bold,
+                                    color: Colors.brown,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 25),
+
+                        // BOTON
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60,
+
+                          child:
+                              ElevatedButton.icon(
+
+                            style:
+                                ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Colors.brown,
+
+                              shape:
+                                  RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(
+                                        20),
+                              ),
+                            ),
+
+                            onPressed: () {
+
+                              final cart =
+                                  Provider.of<
+                                      CartProvider>(
+                                context,
+                                listen: false,
+                              );
+
+                              for(int i = 0;
+                                  i < quantity;
+                                  i++) {
+
+                                cart.addToCart(
+                                  product,
+                                );
+                              }
+
+                              ScaffoldMessenger.of(
+                                      context)
+                                  .showSnackBar(
+
+                                const SnackBar(
+                                  backgroundColor:
+                                      Colors.green,
+
+                                  content: Text(
+                                    "Producto agregado al carrito",
+                                  ),
+                                ),
+                              );
+
+                              Navigator.pushAndRemoveUntil(
+                                context,
+
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const HomeScreen(
+                                    initialTab: 2,
+                                  ),
+                                ),
+
+                                (route) => false,
+                              );
+                            },
+
+                            icon: const Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                            ),
+
+                            label: const Text(
+                              "Agregar al carrito",
+
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight:
+                                    FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ),  
               ),
             ],
           );
