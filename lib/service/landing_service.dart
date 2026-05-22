@@ -6,9 +6,7 @@ class LandingService {
   static const String baseUrl =
       "https://3q3u8w62d9.execute-api.us-east-1.amazonaws.com/v1";
 
-  // =========================
-  // 📌 OBTENER INFO LANDING
-  // =========================
+
   static Future<Map<String, dynamic>> obtenerLanding() async {
 
     final response = await http.get(

@@ -17,12 +17,12 @@ class CartItem {
   CartItem({required this.product, this.quantity = 1});
 }
 
-// 🧾 MODELO DE PEDIDO
+//  MODELO DE PEDIDO
 class Order {
   final String id;
   final List<CartItem> items;
   final double total;
-  final DateTime date; // 👈 AGREGA ESTO
+  final DateTime date; 
   final String time;
   final String payment;
   OrderStatus status;
@@ -31,7 +31,7 @@ class Order {
     required this.id,
     required this.items,
     required this.total,
-    required this.date, // 👈 AGREGA
+    required this.date, 
     required this.time,
     required this.payment,
     this.status = OrderStatus.received,
@@ -64,7 +64,7 @@ class CartProvider extends ChangeNotifier {
   double get total =>
       _items.fold(0, (sum, item) => sum + item.product.price * item.quantity);
 
-  // 🛒 AGREGAR
+  // AGREGAR
   void addToCart(Product product) {
     final index = _items.indexWhere((item) => item.product == product);
 
@@ -77,7 +77,7 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ➕
+   
   void increaseQuantity(Product product) {
     final index = _items.indexWhere((item) => item.product == product);
     if (index >= 0) {
@@ -86,7 +86,7 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  // ➖
+  
   void decreaseQuantity(Product product) {
     final index = _items.indexWhere((item) => item.product == product);
 
@@ -110,7 +110,7 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // 🚀 CONFIRMAR PEDIDO
+  //  CONFIRMAR PEDIDO
   void startOrderSimulation() {
     if (_items.isEmpty) return;
 
@@ -123,7 +123,7 @@ class CartProvider extends ChangeNotifier {
               ))
           .toList(),
       total: total,
-      date: DateTime.now(), // 👈 AGREGA ESTO
+      date: DateTime.now(), 
       time: _selectedTime,
       payment: _selectedPayment,
     );
@@ -154,12 +154,12 @@ class CartProvider extends ChangeNotifier {
       order.status = OrderStatus.delivered;
       notifyListeners();
 
-//  AQUÍ LLAMAS LA NOTIFICACIÓN
+
       _sendNotification(order);
     });
   }
 
-  //  AQUÍ VA LA FUNCIÓN
+ 
   void _sendNotification(Order order) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(

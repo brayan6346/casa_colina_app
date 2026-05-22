@@ -43,7 +43,7 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //  SOLO EMAIL (por si lo necesitas)
+  //  SOLO EMAIL 
   void setEmail(String email) {
     _email = email;
     notifyListeners();

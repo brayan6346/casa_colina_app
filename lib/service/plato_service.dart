@@ -6,9 +6,9 @@ class PlatoService {
   static const String baseUrl =
       "https://3q3u8w62d9.execute-api.us-east-1.amazonaws.com/v1";
 
-  // =========================
-  // 📌 LISTAR PLATOS
-  // =========================
+
+  //  LISTAR PLATOS
+
   static Future<List<dynamic>> listarPlatos() async {
 
     final response = await http.get(
@@ -30,9 +30,9 @@ class PlatoService {
     }
   }
 
-  // =========================
-  // 📌 OBTENER PLATO
-  // =========================
+ 
+  //  OBTENER PLATO
+
   static Future<dynamic> obtenerPlato(int idPlato) async {
 
     final response = await http.get(
@@ -52,9 +52,9 @@ class PlatoService {
     }
   }
 
-  // =========================
-  // 📌 REGISTRAR PLATO
-  // =========================
+ 
+  //  REGISTRAR PLATO
+
   static Future<bool> registrarPlato({
     required int idCategoria,
     required String nombre,
